@@ -4,9 +4,9 @@
   block:
     - name: Import node_exporter task
       ansible.builtin.import_tasks: node_exporter.yaml
-
+    
     - name: Import cadvisor task
-      ansible.builtin.include_tasks: cadvisor.yaml
-
+      ansible.builtin.import_tasks: cadvisor.yaml
+    
     - name: Import exporter_merger task
       ansible.builtin.import_tasks: exporter_merger.yaml

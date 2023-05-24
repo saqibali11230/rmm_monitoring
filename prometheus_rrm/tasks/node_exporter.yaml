@@ -13,11 +13,11 @@
     dest: "{{ node_exporter_bin_path }}"
     mode: 0755
     remote_src: true
-  when: not ansible_check_mode
+  when: node_exporter_binary_local_dir | length == 0
 
-- name: Node_exporter | propagate locally distributed cadvisor binary
+- name: Node_exporter | propagate locally distributed binary
   ansible.builtin.copy:
-    src: "{{ node_exporter_binary_local_dir }}/node_exporter"
+    src: "{{ node_exporter_binary_local_dir }}"
     dest: "{{ node_exporter_bin_path }}"
     mode: 0755
   when: node_exporter_binary_local_dir | length > 0
