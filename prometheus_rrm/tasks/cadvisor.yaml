@@ -1,0 +1,40 @@
+---
+- name: Cadvisor | download
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ cadvisor_download }}"
+    checksum: "sha256:{{ cadvisor_checksum }}"
+    dest: "{{ cadvisor_bin_path }}"
+    force: false
+    mode: u=rwx,g=rx,o=rx
+  when: cadvisor_binary_local_dir | length == 0 and not ansible_check_mode
+
+- name: Cadvisor | propagate locally distributed cadvisor binary
+  ansible.builtin.copy:
+    src: "{{ cadvisor_binary_local_dir }}/cadvisor-{{ cadvisor_version }}"
+    dest: "/usr/local/bin/cadvisor/cadvisor-{{ cadvisor_version }}"
+    mode: 0755
+    owner: root
+    group: root
+  when: cadvisor_binary_local_dir | length > 0
+  notify:
+    - restart cadvisor
+
+- name: Cadvisor | server systemd service
+  become: true
+  ansible.builtin.template:
+    dest: /etc/systemd/system/cadvisor.service
+    src: cadvisor.service.j2
+    mode: 0644
+  notify:
+    - Restart cadvisor
+  when: not ansible_check_mode
+
+- name: Cadvisor | enable and start server systemd
+  become: true
+  ansible.builtin.systemd:
+    enabled: true
+    name: cadvisor.service
+    state: started
+    daemon_reload: true
+  when: not ansible_check_mode

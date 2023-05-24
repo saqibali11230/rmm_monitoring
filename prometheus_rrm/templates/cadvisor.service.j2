@@ -1,0 +1,9 @@
+[Unit]
+Description=Cadvisor Server
+
+[Service]
+User=root
+ExecStart={{ cadvisor_bin_path }} --housekeeping_interval=30s --docker_only=true --port {{ cadvisor_port }}
+
+[Install]
+WantedBy=multi-user.target

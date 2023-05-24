@@ -1,0 +1,43 @@
+---
+node_exporter_version: '1.4.0-rc.0'
+node_exporter_arch: 'amd64'
+node_exporter_download_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/\
+  node_exporter-{{ node_exporter_version }}.linux-{{ node_exporter_arch }}.tar.gz"
+node_exporter_binary_local_dir: ""
+node_exporter_bin_path: /usr/local/bin/node_exporter
+
+node_exporter_host: "localhost"
+node_exporter_port: 9102
+node_exporter_options: ''
+
+node_exporter_state: started
+node_exporter_enabled: true
+
+
+docker_monitoring: false
+cadvisor_version: v0.39.2
+
+# Cadvisor source path if offline
+cadvisor_binary_local_dir: ""
+
+# SHA256 checksum
+cadvisor_checksum: >-
+  65109ea14132bce91bb2a92dc70248c705ba26fb2a7d55e295bf4192940a396c
+
+# Listen port
+cadvisor_port: 9101
+  # Base cadvisor url
+cadvisor_url: https://github.com/google/cadvisor/releases/download/
+
+
+cadvisor_bin_path: /usr/local/bin/cadvisor
+# Download url
+cadvisor_download: "{{ cadvisor_url }}/{{ cadvisor_version }}/cadvisor"
+
+# exporter merger
+exporter_merger_version: '0.4.0'
+exporter_merger_url: "https://github.com/rebuy-de/exporter-merger/releases/download/\
+  v{{ exporter_merger_version }}/exporter-merger-v{{ exporter_merger_version }}.dirty-linux-amd64"
+
+exporter_merger_bin_path: /usr/local/bin/exporter_merger
+exporter_merger_port: 9100
