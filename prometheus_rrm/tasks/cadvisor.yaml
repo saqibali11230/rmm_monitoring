@@ -7,16 +7,6 @@
     dest: "{{ cadvisor_bin_path }}"
     force: false
     mode: u=rwx,g=rx,o=rx
-  when: cadvisor_binary_local_dir | length == 0 and not ansible_check_mode
-
-- name: Cadvisor | propagate locally distributed binary
-  ansible.builtin.copy:
-    src: "{{ cadvisor_binary_local_dir }}"
-    dest: "{{ cadvisor_bin_path }}"
-    mode: 0755
-    owner: root
-    group: root
-  when: cadvisor_binary_local_dir | length > 0
 
 - name: Cadvisor | server systemd service
   become: true

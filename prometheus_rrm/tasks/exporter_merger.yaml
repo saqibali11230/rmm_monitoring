@@ -4,14 +4,6 @@
     url: "{{ exporter_merger_url }}"
     dest: "{{ exporter_merger_bin_path }}"
     mode: 0755
-  when: exporter_merger_binary_local_dir | length == 0 and not ansible_check_mode
-
-- name: exporter_merger | propagate locally distributed binary
-  ansible.builtin.copy:
-    src: "{{ exporter_merger_binary_local_dir }}"
-    dest: "{{ exporter_merger_bin_path }}"
-    mode: 0755
-  when: exporter_merger_binary_local_dir | length > 0
 
 - name: Create directories for exporter-merger
   ansible.builtin.file:
